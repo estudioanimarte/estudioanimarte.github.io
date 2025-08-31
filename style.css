@@ -17,13 +17,15 @@ header{
     color: #615F58;
     height: 10vh;
 }
-header span{
+header span.logo{
     font-weight: 500;
     display: flex;
     font-size: 36px;
+    white-space: nowrap;
 }
 .blue{
     color: #70B0BD;
+   
 }
 header nav ul {
     display: flex;
@@ -336,6 +338,9 @@ main{
     }
     header span.logo {
         font-size: 32px;
+    }
+    .blue{
+        font-size: 32px !important;
     }
 
     /* Carrousel */
