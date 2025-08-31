@@ -16,9 +16,11 @@
     <header>
         <span class="logo">anim<span class="blue">arte</span></span>
         <nav>
+            <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menu">
+                <i class="fas fa-bars"></i>
+            </button>
             <ul>
                 <li><a href="#ourproject">Nosso Projeto</a></li>
-               
                 <li><a href="#inscriptions">Inscrições</a></li>
             </ul>
         </nav>
@@ -30,9 +32,7 @@
 
         <section class="aboutSection" id="ourproject">
             <div class="about-container">
-                <div class="section-title">
-                    <h2>Nosso Projeto</h2>
-                </div>
+        
 
                 <div class="about-row">
                     <div class="about-text">
@@ -104,30 +104,53 @@
                 </div>
             </div>
 
-            <div class="form-container">
+           <div class="form-container">
                 <h2>Faça sua Inscrição</h2>
                 <p>Garanta sua vaga no projeto Animarte! Preencha os campos abaixo.</p>
                 <form action="#" method="POST">
                     <div class="input-group">
                         <label for="fullName">Nome Completo</label>
-                        <input type="text" id="fullName" name="fullName" placeholder="Digite seu nome completo"
-                            required>
+                        <input type="text" id="fullName" name="fullName" placeholder="Digite seu nome completo" required>
                     </div>
                     <div class="input-group">
                         <label for="cpf">CPF</label>
                         <input type="text" id="cpf" name="cpf" placeholder="000.000.000-00" required>
                     </div>
-                    <div class="input-group">
-                        <label for="birthDate">Data de Nascimento</label>
-                        <input type="date" id="birthDate" name="birthDate" required>
+                     <div class="input-group">
+                        <label for="phone">Telefone</label>
+                        <input type="tel" id="phone" name="phone" placeholder="(00) 00000-0000" required>
                     </div>
                     <div class="input-group">
-                        <label for="email">Email</label>
+                        <label for="email">E-mail</label>
                         <input type="email" id="email" name="email" placeholder="seuemail@exemplo.com" required>
                     </div>
                     <div class="input-group">
-                        <label for="phone">Telefone</label>
-                        <input type="tel" id="phone" name="phone" placeholder="(00) 00000-0000" required>
+                        <label>Situação de estudo</label>
+                        <div class="radio-group">
+                            <input type="radio" id="student-if" name="student-status" value="if" required>
+                            <label for="student-if">Sou estudante/servidor do IFCE</label>
+                            <input type="radio" id="student-other" name="student-status" value="other">
+                            <label for="student-other">Outra instituição</label>
+                            <input type="radio" id="student-none" name="student-status" value="none">
+                            <label for="student-none">Não estudo</label>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label for="institution">Onde estuda</label>
+                        <input type="text" id="institution" name="institution" placeholder="Nome da sua escola ou faculdade">
+                    </div>
+                    <div class="input-group">
+                        <label for="portfolio">Link para Portfólio</label>
+                        <small class="helper-text">Pode colocar link do google drive, rede social ou site de portfólio.</small>
+                        <input type="url" id="portfolio" name="portfolio" placeholder="https://exemplo.com/seu-portfolio" required>
+                    </div>
+                     <div class="input-group">
+                        <label for="socialMedia">Rede social (Opcional)</label>
+                        <input type="text" id="socialMedia" name="socialMedia" placeholder="@seuusuario">
+                    </div>
+                    <div class="input-group">
+                        <label for="birthDate">Data de Nascimento</label>
+                        <input type="date" id="birthDate" name="birthDate" required>
                     </div>
                     <button type="submit">Enviar Inscrição</button>
                 </form>
@@ -153,3 +176,4 @@
 </body>
 
 </html>
+
