@@ -250,6 +250,7 @@ main{
     color: #E6E5DE;
     font-size: 16px;
     width: 100%;
+    min-width: 0; /* <-- AJUSTE APLICADO AQUI */
 }
 
 .inscriptions input::placeholder {
