@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
 
+    // ... (código do menu hamburguer permanece o mesmo)
     const menuToggle = document.getElementById('menu-toggle');
     const nav = document.querySelector('header nav');
     const navLinks = document.querySelectorAll('header nav ul li a');
@@ -17,13 +18,14 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+    // ... (fim do código do menu)
+
 
     const countdownContainer = document.getElementById('countdown-container');
     const formContainer = document.querySelector('.form-container');
     
-    const now = new Date();
-    const targetDate = new Date(now.getFullYear(), now.getMonth() + 1, 15, 0, 0, 0);
-    const countDownDate = targetDate.getTime();
+    // Contador ajustado para 15 de Setembro de 2025
+    const countDownDate = new Date("September 15, 2025 00:00:00").getTime();
 
     const interval = setInterval(function() {
         const currentTime = new Date().getTime();
@@ -55,48 +57,52 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const dateInput = document.getElementById('birthDate');
     if (dateInput) {
+        // Preenche o campo de data com a data de hoje por padrão
         const today = new Date();
         const year = today.getFullYear();
-        const month = String(today.getMonth() + 1).padStart(2, '0');
+        const month = String(today.getMonth() + 1).padStart(2, '0'); // Mês começa em 0
         const day = String(today.getDate()).padStart(2, '0');
         const formattedDate = `${year}-${month}-${day}`;
         dateInput.value = formattedDate;
     }
 
     const institutionInput = document.getElementById('institution');
-    const studentStatusRadios = document.querySelectorAll('input[name="student-status"]');
-    const form = document.querySelector('.form-container form');
+    const studentStatusRadios = document.querySelectorAll('input[name="entry.2094310884"]'); 
+    const form = document.getElementById('inscription-form');
     const cpfInput = document.getElementById('cpf');
     const phoneInput = document.getElementById('phone');
 
     function toggleInstitutionField() {
-        const selected = document.querySelector('input[name="student-status"]:checked');
+        const selected = document.querySelector('input[name="entry.2094310884"]:checked');
         
         if (institutionInput && selected) {
             switch(selected.value) {
-                case 'if':
+                case 'Sou estudante/servidor do IFCE':
                     institutionInput.value = 'Instituto Federal de Educação, Ciência e Tecnologia do Ceará';
                     institutionInput.disabled = true;
                     institutionInput.required = true;
                     break;
-                case 'other':
+                case 'Outra instituição':
                     institutionInput.value = '';
                     institutionInput.disabled = false;
                     institutionInput.required = true;
                     break;
-                case 'none':
+                case 'Não estudo':
                     institutionInput.value = '';
                     institutionInput.disabled = true;
                     institutionInput.required = false;
                     break;
             }
+        } else if (institutionInput) {
+             institutionInput.value = '';
+             institutionInput.disabled = true;
+             institutionInput.required = false;
         }
     }
 
     studentStatusRadios.forEach(radio => {
         radio.addEventListener('change', toggleInstitutionField);
     });
-
     toggleInstitutionField();
 
     if (cpfInput) {
@@ -121,41 +127,55 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function validateCPF(cpf) {
+        // ... (função de validar CPF permanece a mesma)
         cpf = String(cpf).replace(/[^\d]+/g, '');
-        if (cpf === '' || cpf.length !== 11 || /^(\d)\1{10}$/.test(cpf)) {
-            return false;
-        }
-        let sum = 0;
-        let remainder;
-        for (let i = 1; i <= 9; i++) {
-            sum = sum + parseInt(cpf.substring(i - 1, i)) * (11 - i);
-        }
+        if (cpf === '' || cpf.length !== 11 || /^(\d)\1{10}$/.test(cpf)) return false;
+        let sum = 0, remainder;
+        for (let i = 1; i <= 9; i++) sum = sum + parseInt(cpf.substring(i-1, i)) * (11 - i);
         remainder = (sum * 10) % 11;
-        if ((remainder === 10) || (remainder === 11)) {
-            remainder = 0;
-        }
-        if (remainder !== parseInt(cpf.substring(9, 10))) {
-            return false;
-        }
+        if ((remainder === 10) || (remainder === 11)) remainder = 0;
+        if (remainder !== parseInt(cpf.substring(9, 10))) return false;
         sum = 0;
-        for (let i = 1; i <= 10; i++) {
-            sum = sum + parseInt(cpf.substring(i - 1, i)) * (12 - i);
-        }
+        for (let i = 1; i <= 10; i++) sum = sum + parseInt(cpf.substring(i-1, i)) * (12 - i);
         remainder = (sum * 10) % 11;
-        if ((remainder === 10) || (remainder === 11)) {
-            remainder = 0;
-        }
-        if (remainder !== parseInt(cpf.substring(10, 11))) {
-            return false;
-        }
+        if ((remainder === 10) || (remainder === 11)) remainder = 0;
+        if (remainder !== parseInt(cpf.substring(10, 11))) return false;
         return true;
+        // ... (fim da função de validar CPF)
+    }
+
+    /*******************************************/
+    /* FUNÇÃO DE VALIDAR IDADE - VERSÃO CORRETA */
+    /*******************************************/
+    function validateAge(birthDateString) { // A string vem no formato "YYYY-MM-DD"
+        // Pega a data atual
+        const today = new Date();
+        const currentYear = today.getFullYear();
+        const currentMonth = today.getMonth() + 1; // Adiciona 1 porque os meses vão de 0 a 11
+        const currentDay = today.getDate();
+
+        // Separa a data de nascimento em ano, mês e dia
+        const [birthYear, birthMonth, birthDay] = birthDateString.split('-').map(Number);
+
+        // Calcula a idade inicial
+        let age = currentYear - birthYear;
+
+        // Verifica se o aniversário já passou no ano corrente.
+        // Se o mês atual for menor que o mês de aniversário, ou
+        // se for o mesmo mês mas o dia atual for menor, então a pessoa ainda não fez aniversário este ano.
+        if (currentMonth < birthMonth || (currentMonth === birthMonth && currentDay < birthDay)) {
+            age--; // Reduz um ano da idade
+        }
+
+        return age >= 16;
     }
 
     if (form) {
-        form.addEventListener('submit', function(event) {
+        form.addEventListener('submit', async function(event) {
             event.preventDefault();
 
-            if(cpfInput) {
+            // Validação de CPF
+            if (cpfInput) {
                 const isCpfValid = validateCPF(cpfInput.value);
                 if (!isCpfValid) {
                     cpfInput.setCustomValidity('Por favor, insira um CPF válido.');
@@ -163,15 +183,48 @@ document.addEventListener('DOMContentLoaded', function() {
                     cpfInput.setCustomValidity('');
                 }
             }
+            
+            // Executando a validação de idade com a função corrigida
+            if (dateInput) {
+                const isAgeValid = validateAge(dateInput.value);
+                if (!isAgeValid) {
+                    dateInput.setCustomValidity('Você deve ter no mínimo 16 anos para se inscrever.');
+                } else {
+                    dateInput.setCustomValidity('');
+                }
+            }
 
-            if (form.checkValidity()) {
-                alert('Inscrição enviada com sucesso!');
-                form.reset();
-                toggleInstitutionField();
-            } else {
+            if (!form.checkValidity()) {
                 form.reportValidity();
+                return;
+            }
+
+            const formContainer = document.querySelector('.form-container');
+            const successMessage = document.getElementById('success-message');
+            const submitButton = form.querySelector('button[type="submit"]');
+
+            try {
+                submitButton.disabled = true;
+                submitButton.textContent = 'Enviando...';
+
+                const formData = new FormData(form);
+                const googleFormsURL = 'https://docs.google.com/forms/u/0/d/e/1FAIpQLSethQPetS-gGtyqJgW9WYwwimWqwcfkFE2cVJhjNflLhavbWw/formResponse';
+
+                await fetch(googleFormsURL, {
+                    method: 'POST',
+                    body: formData,
+                    mode: 'no-cors'
+                });
+
+                formContainer.style.display = 'none';
+                successMessage.style.display = 'block';
+
+            } catch (error) {
+                console.error('Erro ao enviar o formulário:', error);
+                alert('Ocorreu um erro ao enviar sua inscrição. Por favor, verifique sua conexão e tente novamente.');
+                submitButton.disabled = false;
+                submitButton.textContent = 'Enviar Inscrição';
             }
         });
     }
 });
-
