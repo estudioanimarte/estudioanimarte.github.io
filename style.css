@@ -205,8 +205,8 @@ main{
 }
 
 .input-group {
-    display: flex;
-    flex-direction: column;
+    /* CHANGED: Switched from flexbox to grid for more stable layout control */
+    display: grid; 
 }
 
 .input-group label {
@@ -229,6 +229,7 @@ main{
 }
 .radio-group input[type="radio"] + label {
     margin-right: 24px;
+    margin-bottom: 0; /* Override default label margin */
 }
 
 .helper-text {
@@ -457,4 +458,3 @@ input:disabled {
         width: 100%;
     }
 }
-
