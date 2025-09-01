@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const currentTime = new Date().getTime();
         const distance = countDownDate - currentTime;
 
-        if (distance < 0) {
+        if (distance > 0) {
             clearInterval(interval);
             if (countdownContainer) {
                 countdownContainer.style.display = 'none';
