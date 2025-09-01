@@ -160,12 +160,12 @@ main{
 }
 
 .animation-container .frame-one {
-    animation: frame-swap 4s infinite steps(1, end);
+    animation: frame-swap 2s infinite steps(1, end);
 }
 
 .animation-container .frame-two {
     opacity: 0;
-    animation: frame-swap 4s -2s infinite steps(1, end);
+    animation: frame-swap 2s -1s infinite steps(1, end);
 }
 
 .inscriptions {
