@@ -217,14 +217,18 @@ main{
 
 .radio-group {
     display: flex;
-    flex-direction: column;
-    gap: 10px;
-    background: rgba(255,255,255,0.1);
-    padding: 15px;
+    flex-wrap: wrap;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 12px 15px;
     border-radius: 8px;
+    row-gap: 10px;
 }
-.radio-group input {
-    margin-right: 10px;
+.radio-group input[type="radio"] {
+    margin-right: 8px;
+}
+.radio-group input[type="radio"] + label {
+    margin-right: 24px;
 }
 
 .helper-text {

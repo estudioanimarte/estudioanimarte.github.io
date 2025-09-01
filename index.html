@@ -98,7 +98,7 @@
                 </div>
             </div>
 
-           <div class="form-container">
+             <div class="form-container">
                 <h2>Faça sua Inscrição</h2>
                 <p>Garanta sua vaga no projeto Animarte! Preencha os campos abaixo.</p>
                 <form action="#" method="POST">
@@ -121,12 +121,18 @@
                     <div class="input-group">
                         <label>Situação de estudo</label>
                         <div class="radio-group">
-                            <input type="radio" id="student-if" name="student-status" value="if" required>
-                            <label for="student-if">Sou estudante/servidor do IFCE</label>
-                            <input type="radio" id="student-other" name="student-status" value="other">
-                            <label for="student-other">Outra instituição</label>
-                            <input type="radio" id="student-none" name="student-status" value="none">
-                            <label for="student-none">Não estudo</label>
+                            <div class="radio-option">
+                                <input type="radio" id="student-if" name="student-status" value="if" required>
+                                <label for="student-if">Sou estudante/servidor do IFCE</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="student-other" name="student-status" value="other">
+                                <label for="student-other">Outra instituição</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="student-none" name="student-status" value="none">
+                                <label for="student-none">Não estudo</label>
+                            </div>
                         </div>
                     </div>
                     <div class="input-group">
